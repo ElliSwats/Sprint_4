@@ -25,4 +25,4 @@ class TestSwitchBetweenPage:
     def test_clic_to_scooter_in_header(self, driver):
         order_page = OrderPage(driver=driver)
         order_page.order_button(locator=order_page_loc.for_whom_order)
-        assert driver.current_url == main_page_url
+        assert order_page.get_url() == main_page_url

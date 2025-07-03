@@ -43,7 +43,7 @@ class BasePage:
 
     @allure.step('Ожидание видимости элемента')
     def download_wait_by_visible_xpath(self, locator):
-        WebDriverWait(self.driver, 15).until(ec.visibility_of_element_located((By.XPATH, locator)))
+        return WebDriverWait(self.driver, 15).until(ec.visibility_of_element_located((By.XPATH, locator)))
 
     @allure.step('Ожидание видимости элемента')
     def download_wait_by_visible_id(self, locator):
@@ -60,3 +60,17 @@ class BasePage:
     @allure.step('Переход на другое окно')
     def switch_to_window_ind(self, index):
         self.driver.switch_to.window(self.driver.window_handles[index])
+
+    @allure.step('Получение URL')
+    def get_url(self):
+        return self.driver.current_url
+
+    @allure.step('Заполняем поле данными')
+    def set_placeholder(self, locator, information):
+        self.driver.find_element(By.XPATH, locator).send_keys(information)
+
+    @allure.step('Скролл до кнопки "Заказать"')
+    def scroll_to_element(self, locator):
+        self.download_wait_by_visible_xpath(locator)
+        button_order_in_body = self.driver.find_element(By.XPATH, locator)
+        self.driver.execute_script("arguments[0].scrollIntoView(false);", button_order_in_body)

@@ -20,15 +20,11 @@ class TestOrderPage:
     def test_filling_out_order_form(self, driver, loc_btn_order, user_data):
         order_page = OrderPage(driver=driver)
         expected_text = 'Заказ оформлен'
-
-        if loc_btn_order == MainPageLoc.order_in_body:
-            order_page.scroll_to_end_page()
-
+        order_page.scroll_to_element(loc_btn_order)
         order_page.filling_order_form_about_user(
             loc=loc_btn_order, name=user_data['name'],
             surname=user_data['surname'], address=user_data['address'],
             subway=user_data['station'], phone=user_data['phone'])
-
         order_page.filling_order_form_about_rent(
             data=user_data['data'], comments=user_data['comments'])
         actual_text = order_page.completed_order()
